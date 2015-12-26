@@ -229,39 +229,39 @@ local function show_group_settings(msg, data)
   if not is_mod(msg) then return moderators_only end
   local settings = data[tostring(msg.to.id)]['settings']
   if settings.lock_bots == 'yes' then
-    lock_bots_state = '🔒'
+    lock_bots_state = '🚀'
   elseif settings.lock_bots == 'no' then
-    lock_bots_state = '🔓'
+    lock_bots_state = '🚀'
   end
   if settings.lock_name == 'yes' then
-    lock_name_state = '🔒'
+    lock_name_state = '🚀'
   elseif settings.lock_name == 'no' then
-    lock_name_state = '🔓'
+    lock_name_state = '🚀'
   end
   if settings.lock_photo == 'yes' then
-    lock_photo_state = '🔒'
+    lock_photo_state = '🚀'
   elseif settings.lock_photo == 'no' then
-    lock_photo_state = '🔓'
+    lock_photo_state = '🚀'
   end
   if settings.lock_member == 'yes' then
-    lock_member_state = '🔒'
+    lock_member_state = '🚀'
   elseif settings.lock_member == 'no' then
-    lock_member_state = '🔓'
+    lock_member_state = '🚀'
   end
   if settings.anti_flood ~= 'no' then
-    antiflood_state = '🔒'
+    antiflood_state = '🚀'
   elseif settings.anti_flood == 'no' then
-    antiflood_state = '🔓'
+    antiflood_state = '🚀'
   end
   if settings.welcome ~= 'no' then
-    greeting_state = '🔒'
+    greeting_state = '🚀'
   elseif settings.welcome == 'no' then
-    greeting_state = '🔓'
+    greeting_state = '🚀'
   end
   if settings.sticker ~= 'ok' then
-    sticker_state = '🔒'
+    sticker_state = '🚀'
   elseif settings.sticker == 'ok' then
-    sticker_state = '🔓'
+    sticker_state = '🚀'
   end
   local text = 'Group settings:\n'
         ..'\n'..lock_bots_state..' Lock group from bot : '..settings.lock_bots
@@ -292,18 +292,18 @@ function run(msg, matches)
   local receiver = get_receiver(msg)
 
   -- create a group
-  if matches[1] == 'mkgroup' and matches[2] then
+  if matches[1] == 'cg' and matches[2] then
     group_name = matches[2]
     return create_group(msg)
   end
 
   -- add a group to be moderated
-  if matches[1] == 'addgroup' then
+  if matches[1] == 'add' then
     return addgroup(msg)
   end
 
   -- remove group from moderation
-  if matches[1] == 'remgroup' then
+  if matches[1] == 'rem' then
     return remgroup(msg)
   end
 
@@ -353,9 +353,9 @@ function run(msg, matches)
       end
 	  end
 
-		if matches[1] == 'group' then
+                if matches[1] == 'group' then
       -- lock {bot|name|member|photo|sticker}
-      if matches[2] == 'lock' then
+      if matches[1] == 'lock' then
         if matches[3] == 'bot' then
           return disallow_api_bots(msg, data)
         end
@@ -522,9 +522,9 @@ return {
   description = 'Plugin to manage group chat.',
   usage = {
     admin = {
-      '!mkgroup <group_name> : Make/create a new group.',
-      '!addgroup : Add group to moderation list.',
-      '!remgroup : Remove group from moderation list.'
+      '!cg <group_name> : Make/create a new group.',
+      '!add : Add group to moderation list.',
+      '!rem : Remove group from moderation list.'
     },
     moderator = {
       '!group <lock|unlock> bot : {Dis}allow APIs bots.',
@@ -549,16 +549,16 @@ return {
   },
   patterns = {
     "^!(about)$",
-    "^!(addgroup)$",
+    "^!(add)$",
     "%[(audio)%]",
     "%[(document)%]",
     "^!(group) (lock) (.*)$",
     "^!(group) (settings)$",
     "^!(group) (unlock) (.*)$",
     "^!(link) (.*)$",
-    "^!(mkgroup) (.*)$",
+    "^!(cg) (.*)$",
     "%[(photo)%]",
-    "^!(remgroup)$",
+    "^!(rem)$",
     "^!(rules)$",
     "^!(setabout) (.*)$",
     "^!(setname) (.*)$",
